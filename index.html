@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Registro de órdenes y pickeos</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div id="app">
+    <main>
+      <header>
+        <div>
+          <div class="eyebrow">Control de inventario</div>
+          <h1>Registro de órdenes y pickeos</h1>
+          <p class="subtitle">Introduce, organiza y actualiza los registros desde un solo lugar.</p>
+        </div>
+        <div class="count" id="recordCount">0 registros</div>
+      </header>
+
+      <section class="panel" aria-labelledby="formTitle">
+        <div class="section-heading">
+          <h2 id="formTitle">Datos del registro</h2>
+          <span class="hint">Los campos adicionales son opcionales</span>
+        </div>
+        <form id="recordForm">
+          <div class="fields">
+            <div class="field"><label for="cambio">Cambio</label><input id="cambio" name="cambio" placeholder="Ej. 01" autocomplete="off"></div>
+            <div class="field"><label for="orden">Orden *</label><input id="orden" name="orden" placeholder="Ej. 1574578" required autocomplete="off"></div>
+            <div class="field"><label for="linea">Línea *</label><input id="linea" name="linea" placeholder="Ej. Zoon 2" required autocomplete="off"></div>
+            <div class="field"><label for="pickeos">Pickeos *</label><input id="pickeos" name="pickeos" placeholder="Ej. 184462" required autocomplete="off"></div>
+            <div class="field"><label for="column5">Columna 5</label><input id="column5" name="column5" placeholder="Dato adicional" autocomplete="off"></div>
+            <div class="field"><label for="column6">Columna 6</label><input id="column6" name="column6" placeholder="Dato adicional" autocomplete="off"></div>
+            <div class="field"><label for="column7">Columna 7</label><input id="column7" name="column7" placeholder="Dato adicional" autocomplete="off"></div>
+            <div class="field"><label for="column8">Columna 8</label><input id="column8" name="column8" placeholder="Dato adicional" autocomplete="off"></div>
+          </div>
+          <div class="actions">
+            <button class="primary" id="saveBtn" type="submit">＋ Agregar registro</button>
+            <button class="secondary" id="cancelBtn" type="button" hidden>Cancelar edición</button>
+            <button class="secondary" type="reset">Limpiar campos</button>
+          </div>
+          <div class="status" id="status" role="status" aria-live="polite"></div>
+        </form>
+      </section>
+
+      <section class="panel" aria-labelledby="tableTitle">
+        <div class="section-heading">
+          <h2 id="tableTitle">Registros guardados</h2>
+          <button class="danger" id="clearBtn" type="button">Limpiar tabla</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Cambio</th><th>Orden</th><th>Línea</th><th>Pickeos</th><th>Column5</th><th>Column6</th><th>Column7</th><th>Column8</th><th>Acciones</th></tr></thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+          <div class="empty" id="emptyMessage" hidden>No hay registros todavía. Completa el formulario para agregar el primero.</div>
+        </div>
+        <p class="footer-note">Pulsa “Editar” en cualquier fila para cargar sus datos en el formulario. Los cambios se aplican al guardar.</p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
