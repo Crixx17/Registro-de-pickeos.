@@ -31,7 +31,8 @@ document.addEventListener("DOMContentLoaded", () => {
             column5: "",
             column6: "",
             column7: "",
-            column8: ""
+            column8: "",
+            recibido: false
         },
         {
             cambio: "",
@@ -41,7 +42,8 @@ document.addEventListener("DOMContentLoaded", () => {
             column5: "",
             column6: "",
             column7: "",
-            column8: ""
+            column8: "",
+            recibido: false
         },
         {
             cambio: "",
@@ -51,7 +53,8 @@ document.addEventListener("DOMContentLoaded", () => {
             column5: "",
             column6: "",
             column7: "",
-            column8: ""
+            column8: "",
+            recibido: false
         }
     ];
 
@@ -106,6 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             contenedorBotones.className = "row-actions";
 
+            // Botón Editar
             const botonEditar = document.createElement("button");
             botonEditar.type = "button";
             botonEditar.className = "secondary mini";
@@ -115,6 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 editarRegistro(indice);
             });
 
+            // Botón Eliminar
             const botonEliminar = document.createElement("button");
             botonEliminar.type = "button";
             botonEliminar.className = "danger mini";
@@ -124,9 +129,39 @@ document.addEventListener("DOMContentLoaded", () => {
                 eliminarRegistro(indice);
             });
 
+            // Botón Recibido
+            const botonRecibido = document.createElement("button");
+            botonRecibido.type = "button";
+            botonRecibido.className = "received mini";
+
+            if (registro.recibido) {
+                botonRecibido.classList.add("is-received");
+                botonRecibido.textContent = "✓ Recibido";
+            } else {
+                botonRecibido.textContent = "☐ Recibido";
+            }
+
+            botonRecibido.setAttribute(
+                "aria-pressed",
+                String(Boolean(registro.recibido))
+            );
+
+            botonRecibido.addEventListener("click", () => {
+                registro.recibido = !registro.recibido;
+
+                mostrarTabla();
+
+                mostrarMensaje(
+                    registro.recibido
+                        ? `La orden ${registro.orden} fue marcada como recibida.`
+                        : `La orden ${registro.orden} ya no está marcada como recibida.`
+                );
+            });
+
             contenedorBotones.append(
                 botonEditar,
-                botonEliminar
+                botonEliminar,
+                botonRecibido
             );
 
             celdaAcciones.appendChild(contenedorBotones);
@@ -150,12 +185,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (indiceEdicion === null) {
+            datos.recibido = false;
             registros.push(datos);
 
             mostrarMensaje(
                 `La orden ${datos.orden} se agregó correctamente.`
             );
         } else {
+            // Mantener el estado de recibido al editar
+            datos.recibido = registros[indiceEdicion].recibido || false;
             registros[indiceEdicion] = datos;
 
             mostrarMensaje(
@@ -258,7 +296,7 @@ document.addEventListener("DOMContentLoaded", () => {
         mostrarMensaje("Todos los registros fueron eliminados.");
     });
 
-    // Limpiar los campos sin modificar la tabla
+    // Restablecer el formulario si se limpian los campos
     formulario.addEventListener("reset", () => {
         if (indiceEdicion !== null) {
             indiceEdicion = null;
@@ -274,3 +312,4 @@ document.addEventListener("DOMContentLoaded", () => {
     // Mostrar la tabla al iniciar la página
     mostrarTabla();
 });
+
