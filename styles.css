@@ -59,3 +59,16 @@ tbody tr.selected td { background:#eaf0fc; }
   .fields { grid-template-columns:1fr; }
   .count { white-space:normal; }
 }
+
+
+/* Botón de recibido */
+.received {
+    background: #e1f7e8;
+    color: #176b35;
+}
+
+.received.is-received {
+    background: #198754;
+    color: #ffffff;
+}
+
